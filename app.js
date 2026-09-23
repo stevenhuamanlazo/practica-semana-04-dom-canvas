@@ -292,7 +292,39 @@ const OrbitEngine = (() => {
 document.addEventListener("DOMContentLoaded", () => {
   OrbitEngine.init();
 
-  // Paso 1
+  /* ==========================================================================
+     INTERACTIVIDAD DE TABS DE NAVEGACIÓN (SOMBREADO DINÁMICO)
+     ========================================================================== */
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.step-card');
+
+  // 1. Cambiar sombreado al hacer clic en los botones
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', function () {
+      tabButtons.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // 2. Cambiar sombreado automáticamente al hacer scroll por la página
+  window.addEventListener('scroll', () => {
+    let currentSection = "";
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (window.scrollY >= sectionTop) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+
+    tabButtons.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('href') === `#${currentSection}`) {
+        btn.classList.add('active');
+      }
+    });
+  });
+
+  // --- Resto de tus event listeners (Paso 1, Paso 2, Paso 3, etc.) ---
   document.getElementById("btnPlay").addEventListener("click", () => OrbitEngine.togglePlay(true));
   document.getElementById("btnPause").addEventListener("click", () => OrbitEngine.togglePlay(false));
   document.getElementById("btnReset").addEventListener("click", () => OrbitEngine.resetPaso1());
@@ -302,21 +334,17 @@ document.addEventListener("DOMContentLoaded", () => {
     OrbitEngine.setSpeed(e.target.value);
   });
 
-  // Paso 2
   document.getElementById("btnBoostClosure").addEventListener("click", () => OrbitEngine.applyBoost());
 
-  // Paso 3
   const planetBox = document.getElementById("planetDemoBox");
   document.getElementById("btnToggleTheme").addEventListener("click", () => planetBox.classList.toggle("neon-mode"));
   document.getElementById("btnPulseOrbit").addEventListener("click", () => planetBox.classList.toggle("pulse"));
   document.getElementById("btnResetPlanet").addEventListener("click", () => planetBox.className = "demo-box planet-mode");
 
-  // Paso 4
   document.getElementById("btnStartAnim").addEventListener("click", () => OrbitEngine.togglePlay(true));
   document.getElementById("btnStopAnim").addEventListener("click", () => OrbitEngine.togglePlay(false));
   document.getElementById("btnAddSatellite").addEventListener("click", () => OrbitEngine.addSatellite());
 
-  // Paso 5
   document.getElementById("btnSimulateLeak").addEventListener("click", () => OrbitEngine.simulateMemoryLeak());
   document.getElementById("btnCleanMem").addEventListener("click", () => OrbitEngine.cleanMemory());
   document.getElementById("btnAnalyze").addEventListener("click", () => {

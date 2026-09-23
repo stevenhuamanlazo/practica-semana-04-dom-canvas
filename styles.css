@@ -133,11 +133,12 @@ body {
   transition: all 0.25s ease;
 }
 
-.tab-btn:hover, .tab-btn.active {
-  background: linear-gradient(135deg, #059669, #10b981);
-  color: white;
-  border-color: #34d399;
-  box-shadow: 0 4px 20px var(--green-glow);
+.tab-btn:hover, 
+.tab-btn.active {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+  color: #ffffff !important;
+  border-color: #34d399 !important;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5) !important;
 }
 
 /* CONTENEDOR DE PASOS Y TARJETAS ALTAMENTE DIFERENCIADAS */
