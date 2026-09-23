@@ -42,4 +42,7 @@ Siguiendo las reglas de la guía práctica (lógica y desarrollo propio ≥ 70%)
 4. **Paso 5 (Profiling)**: Interpretación técnica de las métricas registradas en las pestañas *Performance* y *Memory* de DevTools.
 
 ---
+## 🚀 Despliegue y Enlaces
 
+- **Repositorio en GitHub**: `https://github.com/stevenhuamanlazo/simulador-orbital-js`
+- **Proyecto en Vivo (GitHub Pages)**: `https://stevenhuamanlazo.github.io/simulador-orbital-js/`
