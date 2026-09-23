@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica Semana 04 - Mini Sistema Solar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="contenedor">
+    <h1>Mini Sistema Solar</h1>
+
+    <section id="controles" class="panel">
+      <button id="btn-toggle" class="btn" type="button">Pausar</button>
+
+      <label>Velocidad (1-10)
+        <input id="inp-velocidad" type="number" min="1" max="10" value="3">
+      </label>
+
+      <label>Nombre del planeta
+        <input id="inp-nombre" type="text" maxlength="12" value="Tierra">
+      </label>
+
+      <button id="btn-tema" class="btn" type="button">Cambiar tema</button>
+
+      <p id="msg-error" class="error oculto"></p>
+    </section>
+
+    <canvas id="lienzo" width="800" height="450"></canvas>
+
+    <section class="panel estado">
+      <span id="fps">FPS: --</span>
+      <span id="estado">Estado: Ejecutando</span>
+    </section>
+  </main>
+</body>
+</html>
