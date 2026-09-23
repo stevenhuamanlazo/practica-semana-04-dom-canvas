@@ -44,5 +44,5 @@ Siguiendo las reglas de la guía práctica (lógica y desarrollo propio ≥ 70%)
 ---
 ## 🚀 Despliegue y Enlaces
 
-- **Repositorio en GitHub**: `https://github.com/stevenhuamanlazo/simulador-orbital-js`
-- **Proyecto en Vivo (GitHub Pages)**: `https://stevenhuamanlazo.github.io/simulador-orbital-js/`
+- **Repositorio en GitHub**: [practica-semana-04-dom-canvas](https://github.com/stevenhuamanlazo/practica-semana-04-dom-canvas)
+- **Proyecto en Vivo (GitHub Pages)**: [Ver Aplicación en Vivo](https://stevenhuamanlazo.github.io/practica-semana-04-dom-canvas/)
