@@ -29,7 +29,38 @@
   };
 
   // CLOSURE: el objeto `estado` y las funciones de arriba se crean dentro de
-  // la IIFE. Cuando la IIFE termina de ejecutarse, esas variables no se borran
+    // IA (Claude): esqueleto de selectores y listeners. Validación y lógica: mía.
+  const btnToggle = document.querySelector('#btn-toggle');
+  const inpVelocidad = document.querySelector('#inp-velocidad');
+  const inpNombre = document.querySelector('#inp-nombre');
+  const btnTema = document.querySelector('#btn-tema');
+  const msgError = document.querySelector('#msg-error');
+  const spanEstado = document.querySelector('#estado');
+
+  const mostrarError = (texto) => {
+    // TODO: poner el texto en msgError y quitar la clase 'oculto'
+  };
+
+  const ocultarError = () => {
+    // TODO: agregar la clase 'oculto'
+  };
+
+  btnToggle.addEventListener('click', () => {
+    // TODO: alternarPausa(), cambiar texto del botón,
+    // classList.toggle('pausado') y actualizar spanEstado
+  });
+
+  inpVelocidad.addEventListener('input', (e) => {
+    // TODO: validar número entre 1 y 10; si falla mostrarError y salir
+  });
+
+  inpNombre.addEventListener('input', (e) => {
+    // TODO: validar con trim() que no esté vacío; si falla mostrarError
+  });
+
+  btnTema.addEventListener('click', () => {
+    // TODO: document.body.classList.toggle('tema-claro')
+  });
   // porque las funciones (y más adelante el bucle de animación) todavía las
   // referencian. Por eso, en cada frame, `estado` conserva los ángulos, la
   // velocidad y el nombre del frame anterior. Como no está en el scope global,
