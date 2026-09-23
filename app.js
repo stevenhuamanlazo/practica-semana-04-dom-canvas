@@ -61,8 +61,33 @@
   btnTema.addEventListener('click', () => {
     // TODO: document.body.classList.toggle('tema-claro')
   });
-  // porque las funciones (y más adelante el bucle de animación) todavía las
+   // IA (Claude): esqueleto del canvas y del bucle. Dibujo y dt: míos.
+  const lienzo = document.querySelector('#lienzo');
+  const ctx = lienzo.getContext('2d');
+  let ultimo = 0;
+
+  const actualizar = (dt) => {
+    // TODO: si no está pausado, avanzar anguloTierra y anguloMarte
+    // con: velocidad * dt (cada planeta a distinto ritmo)
+  };
+
+  const dibujar = () => {
+    // TODO: fondo con fillRect
+    // TODO: Sol con arc en el centro
+    // TODO: órbitas con arc + stroke
+    // TODO: dos planetas con arc usando cos/sin del ángulo
+    // TODO: nombre del planeta con fillText
+  };
+
+  const bucle = (marca) => {
+    // TODO: dt en segundos = (marca - ultimo) / 1000, con tope máximo
+    // TODO: ultimo = marca; actualizar(dt); dibujar();
+    requestAnimationFrame(bucle);
+  };
+
+  requestAnimationFrame(bucle);
   // referencian. Por eso, en cada frame, `estado` conserva los ángulos, la
   // velocidad y el nombre del frame anterior. Como no está en el scope global,
   // ningún otro script puede modificarlo por accidente.
+
 })();
