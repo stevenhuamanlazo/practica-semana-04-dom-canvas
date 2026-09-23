@@ -3,36 +3,294 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Práctica Semana 04 - Mini Sistema Solar</title>
+  <title>Simulador Orbital Interactivo</title>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
-  <main class="contenedor">
-    <h1>Mini Sistema Solar</h1>
 
-    <section id="controles" class="panel">
-      <button id="btn-toggle" class="btn" type="button">Pausar</button>
+  <!-- ENCABEZADO CON TÍTULO PRINCIPAL DE LA TEMÁTICA -->
+  <header class="main-header">
+    <div class="header-badge">GUÍA PRÁCTICA DE DESARROLLO WEB</div>
+    <h1 class="animated-title">
+      <span class="orbit-icon">🪐</span> SIMULADOR ORBITAL INTERACTIVO
+    </h1>
+    <p class="header-subtitle">JavaScript · Manipulación del DOM · Canvas API · Animaciones</p>
+  </header>
 
-      <label>Velocidad (1-10)
-        <input id="inp-velocidad" type="number" min="1" max="10" value="3">
-      </label>
+  <!-- NAVEGACIÓN STICKY -->
+  <nav class="tabs-nav">
+    <a href="#step-1" class="tab-btn active">Paso 1: HTML & Canvas</a>
+    <a href="#step-2" class="tab-btn">Paso 2: IIFE & Closures</a>
+    <a href="#step-3" class="tab-btn">Paso 3: DOM & Temas</a>
+    <a href="#step-4" class="tab-btn">Paso 4: Multi-Órbita</a>
+    <a href="#step-5" class="tab-btn">Paso 5: Rendimiento</a>
+  </nav>
 
-      <label>Nombre del planeta
-        <input id="inp-nombre" type="text" maxlength="12" value="Tierra">
-      </label>
+  <!-- CONTENEDOR PRINCIPAL CON TARJETAS SEPARADAS -->
+  <main class="steps-container">
 
-      <button id="btn-tema" class="btn" type="button">Cambiar tema</button>
+    <!-- PASO 1 -->
+    <section id="step-1" class="step-card">
+      <div class="step-content">
+        <div class="step-header">
+          <span class="step-number">01</span>
+          <div>
+            <h2>Setup HTML + UI con Canvas</h2>
+            <p class="step-subtitle">Estructura base con controles del simulador y lienzo &lt;canvas&gt;</p>
+          </div>
+        </div>
+        <span class="badge-active">● PASO 1 ACTIVO</span>
 
-      <p id="msg-error" class="error oculto"></p>
+        <div class="controls-row">
+          <button id="btnPlay" class="btn btn-green">► Play</button>
+          <button id="btnPause" class="btn btn-red">❚❚ Pause</button>
+          <button id="btnReset" class="btn btn-purple">↺ Reset</button>
+          <input type="text" id="inputName" value="MIGUEL" placeholder="Nombre del Astro">
+          
+          <div class="range-container">
+            <span>Velocidad: <strong id="speedDisplay">7</strong></span>
+            <input type="range" id="rangeSpeed" min="1" max="15" value="7">
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <canvas id="orbitCanvasStep1" width="480" height="220"></canvas>
+        </div>
+      </div>
+
+      <div class="step-code-box">
+        <div class="code-header">
+          <span>📄 Código en Vivo</span>
+          <span class="badge-step-code">Paso 1</span>
+        </div>
+        <div class="code-step-tag">SETUP BASE</div>
+        <pre><code>// Paso 1: Setup HTML + Canvas Orbital
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Simulador Orbital&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input id="inputName" placeholder="Nombre del Astro"&gt;
+  &lt;canvas id="orbitCanvas" width="480" height="220"&gt;&lt;/canvas&gt;
+  &lt;script src="app.js" defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+// app.js - Contexto 2D
+const canvas = document.getElementById('orbitCanvas');
+const ctx = canvas.getContext('2d');</code></pre>
+      </div>
     </section>
 
-    <canvas id="lienzo" width="800" height="450"></canvas>
+    <!-- PASO 2 -->
+    <section id="step-2" class="step-card">
+      <div class="step-content">
+        <div class="step-header">
+          <span class="step-number">02</span>
+          <div>
+            <h2>IIFE + Closures + State</h2>
+            <p class="step-subtitle">Aislamiento del estado espacial sin contaminar el scope global</p>
+          </div>
+        </div>
+        <span class="badge-active">● PASO 2 ACTIVO</span>
 
-    <section class="panel estado">
-      <span id="fps">FPS: --</span>
-      <span id="estado">Estado: Ejecutando</span>
+        <div class="closure-demo-box">
+          <h3>Estado Encapsulado en Closure:</h3>
+          <div class="metrics-row">
+            <div class="metric-item">
+              <span id="counterOrbits" class="big-number">0</span>
+              <p>Órbitas Completas</p>
+            </div>
+            <div class="metric-item">
+              <span id="counterClicks" class="big-number">0</span>
+              <p>Impulsos Aceleradores</p>
+            </div>
+            <div class="metric-item">
+              <span id="lastActionText" class="action-text">Estable</span>
+              <p>Estado Orbital</p>
+            </div>
+          </div>
+          <button id="btnBoostClosure" class="btn btn-green full-width">🚀 Aplicar Impulso Orbital (Closure)</button>
+          <p class="footnote">💡 El closure retiene las variables de ángulo, impulsos y velocidad entre fotogramas.</p>
+        </div>
+      </div>
+
+      <div class="step-code-box">
+        <div class="code-header">
+          <span>📄 Código en Vivo</span>
+          <span class="badge-step-code">Paso 2</span>
+        </div>
+        <div class="code-step-tag">PATRÓN CLOSURE</div>
+        <pre><code>// Paso 2: IIFE + Closures para Estado Orbital
+const OrbitEngine = (() =&gt; {
+  let state = { angle: 0, speed: 0.03, impulses: 0 };
+
+  return {
+    getAngle: () =&gt; state.angle,
+    applyBoost: () =&gt; { 
+      state.impulses++;
+      state.speed += 0.01; 
+    }
+  };
+})();</code></pre>
+      </div>
     </section>
+
+    <!-- PASO 3 -->
+    <section id="step-3" class="step-card">
+      <div class="step-content">
+        <div class="step-header">
+          <span class="step-number">03</span>
+          <div>
+            <h2>Manipulación DOM & Temas</h2>
+            <p class="step-subtitle">Manipulación dinámica con classList.toggle() y eventos</p>
+          </div>
+        </div>
+        <span class="badge-active">● PASO 3 ACTIVO</span>
+
+        <div class="dom-demo-container">
+          <div id="planetDemoBox" class="demo-box planet-mode">
+            <span>🪐 PLANETA DEMO</span>
+          </div>
+          <div class="controls-row center-content">
+            <button id="btnToggleTheme" class="btn btn-purple">Modo Galaxia / Neón</button>
+            <button id="btnPulseOrbit" class="btn btn-amber">Efecto Pulsar</button>
+            <button id="btnResetPlanet" class="btn btn-red">Restablecer Astro</button>
+          </div>
+
+          <div class="validation-box">
+            <label for="inputEmail">Telemetría de la Misión (Email):</label>
+            <input type="email" id="inputEmail" value="mision@orbit.space">
+          </div>
+        </div>
+      </div>
+
+      <div class="step-code-box">
+        <div class="code-header">
+          <span>📄 Código en Vivo</span>
+          <span class="badge-step-code">Paso 3</span>
+        </div>
+        <div class="code-step-tag">DOM & CLASES</div>
+        <pre><code>// Paso 3: Manipulación del DOM + Temas
+const btnToggle = document.getElementById('btnToggleTheme');
+const planetBox = document.getElementById('planetDemoBox');
+
+btnToggle.addEventListener('click', () =&gt; {
+  planetBox.classList.toggle('neon-mode');
+});</code></pre>
+      </div>
+    </section>
+
+    <!-- PASO 4 -->
+    <section id="step-4" class="step-card">
+      <div class="step-content">
+        <div class="step-header">
+          <span class="step-number">04</span>
+          <div>
+            <h2>Canvas API + Delta Time (dt)</h2>
+            <p class="step-subtitle">Movimiento orbital uniforme con requestAnimationFrame</p>
+          </div>
+        </div>
+        <span class="badge-active">● PASO 4 ACTIVO</span>
+
+        <div class="canvas-container">
+          <canvas id="orbitCanvasStep4" width="480" height="220"></canvas>
+        </div>
+
+        <div class="controls-row center-content">
+          <button id="btnStartAnim" class="btn btn-green">► Reanudar</button>
+          <button id="btnStopAnim" class="btn btn-red">■ Pausar</button>
+          <button id="btnAddSatellite" class="btn btn-purple">+ Añadir Satélite</button>
+        </div>
+      </div>
+
+      <div class="step-code-box">
+        <div class="code-header">
+          <span>📄 Código en Vivo</span>
+          <span class="badge-step-code">Paso 4</span>
+        </div>
+        <div class="code-step-tag">RENDER LOOP & DT</div>
+        <pre><code>// Paso 4: Canvas API + Delta Time (dt)
+function mainLoop(time) {
+  const dt = (time - lastTime) / 1000 || 0;
+  lastTime = time;
+
+  state.angle += state.speedFactor * dt * 60;
+  const x = cx + Math.cos(state.angle) * radius;
+  const y = cy + Math.sin(state.angle) * radius;
+  
+  requestAnimationFrame(mainLoop);
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- PASO 5 -->
+    <section id="step-5" class="step-card">
+      <div class="step-content">
+        <div class="step-header">
+          <span class="step-number">05</span>
+          <div>
+            <h2>Monitor de Rendimiento</h2>
+            <p class="step-subtitle">Métricas en tiempo real, detección de fugas y Heap JS</p>
+          </div>
+        </div>
+        <span class="badge-active">● PASO 5 ACTIVO</span>
+        <span class="badge-status">● OPTIMIZADO</span>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <h3 id="fpsVal">60</h3>
+            <p>FPS Actual</p>
+          </div>
+          <div class="metric-card">
+            <h3 id="memVal">12.4</h3>
+            <p>Memoria Heap (MB)</p>
+          </div>
+          <div class="metric-card">
+            <h3 id="listenersVal">18</h3>
+            <p>Listeners Activos</p>
+          </div>
+          <div class="metric-card">
+            <h3 id="leaksVal">0</h3>
+            <p>Fugas de Memoria</p>
+          </div>
+        </div>
+
+        <div class="history-section">
+          <h4>HISTORIAL DE RENDIMIENTO (FPS)</h4>
+          <div class="bar-chart" id="fpsBarChart"></div>
+        </div>
+
+        <div class="controls-row center-content">
+          <button id="btnAnalyze" class="btn btn-purple">Analizar Performance</button>
+          <button id="btnSimulateLeak" class="btn btn-amber">⚠️ Simular Leak (+50k)</button>
+          <button id="btnCleanMem" class="btn btn-green">🧹 Limpiar Memoria</button>
+        </div>
+
+        <div class="console-logs" id="consoleLogs">
+          <p>[SISTEMA] Monitor de rendimiento iniciado correctamente...</p>
+        </div>
+      </div>
+
+      <div class="step-code-box">
+        <div class="code-header">
+          <span>📄 Código en Vivo</span>
+          <span class="badge-step-code">Paso 5</span>
+        </div>
+        <div class="code-step-tag">PROFILING & HEAP</div>
+        <pre><code>// Paso 5: Profiling & Memory Leak Test
+if (window.performance && window.performance.memory) {
+  const heap = performance.memory.usedJSHeapSize;
+  const heapMB = (heap / (1024 * 1024)).toFixed(2);
+  console.log('Heap activo:', heapMB + ' MB');
+}</code></pre>
+      </div>
+    </section>
+
   </main>
+
 </body>
 </html>
